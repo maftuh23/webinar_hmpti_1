@@ -21,5 +21,5 @@ Inspiration, code snippets, etc.
 Contributors names and contact info
 
 Maftuh Ichsan
-[Website](https://skyemaff.com/)
-[Linkedln](https://www.linkedin.com/in/maftuh-ichsan-456984198/)
+* [Website](https://skyemaff.com/)
+* [Linkedln](https://www.linkedin.com/in/maftuh-ichsan-456984198/)
