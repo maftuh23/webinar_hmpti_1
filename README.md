@@ -7,7 +7,7 @@ Materi dan Source Code Webinari HMPTI
 
 1. [Source Code Awal](https://github.com/maftuh23/webinar_hmpti_1/tree/master/source_code_awal)
 2. [Source Code Hasil](https://github.com/maftuh23/webinar_hmpti_1/tree/master/source_code_awal)
-3. Materi (Coming Soon)
+3. [Materi] (https://github.com/maftuh23/webinar_hmpti_1/blob/master/Materi.pptx)
 4. Video Webinar (Coming Soon)
 
 ## Tools
