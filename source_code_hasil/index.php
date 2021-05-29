@@ -19,18 +19,8 @@ include ("conn.php");
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
 </head>
 <?php
-if(isset($_GET['id'])){
-    $id_barang = $_GET['id'];
-
-    $query = mysqli_query($conn,"DELETE FROM tbl_barang where id_barang='$id_barang'") or die(mysql_error());
-    
-    if ($query) {
-      echo "<script>alert('Berhasil Hapus Data Barang!'); window.location = 'index.php'</script>";	   
-    } else {
-      echo "<script>alert('Gagal Hapus Data Barang!'); window.location = 'index.php'</script>";	   
-    }
-} elseif(isset($_POST['simpan'])){
-    $nama_barang 		= $_POST['nama_barang'];
+if (isset($_POST['simpan'])){
+    $nama_barang 		  = $_POST['nama_barang'];
     $jumlah_barang 		= $_POST['jumlah_barang'];
     $harga_barang 		= $_POST['harga_barang'];
     $tgl_input 		    = $_POST['tgl_input'];
@@ -43,6 +33,31 @@ if(isset($_GET['id'])){
     } else {
       echo "<script>alert('Data Barang Gagal disimpan!'); window.location = 'index.php'</script>";	   
     }
+} elseif (isset($_POST['edit'])){
+  $id_barang 		    = $_GET['id'];
+  $nama_barang 		  = $_POST['nama_barang'];
+  $jumlah_barang 		= $_POST['jumlah_barang'];
+  $harga_barang 		= $_POST['harga_barang'];
+  $tgl_input 		    = $_POST['tgl_input'];
+
+  $query = mysqli_query($conn,"UPDATE tbl_barang SET nama_barang='$nama_barang', jumlah_barang='$jumlah_barang', harga_barang='$harga_barang', tgl_input='$tgl_input'
+              WHERE id_barang='$id_barang'") or die(mysql_error());
+  
+  if ($query) {
+    echo "<script>alert('Data Barang Berhasil diedit!'); window.location = 'index.php'</script>";	   
+  } else {
+    echo "<script>alert('Data Barang Gagal diedit!'); window.location = 'index.php'</script>";	   
+  }
+} elseif (isset($_GET['id'])){
+  $id_barang = $_GET['id'];
+
+  $query = mysqli_query($conn,"DELETE FROM tbl_barang where id_barang='$id_barang'") or die(mysql_error());
+  
+  if ($query) {
+    echo "<script>alert('Berhasil Hapus Data Barang!'); window.location = 'index.php'</script>";	   
+  } else {
+    echo "<script>alert('Gagal Hapus Data Barang!'); window.location = 'index.php'</script>";	   
+  }
 }
 ?>
 <body class="hold-transition layout-fixed">
@@ -88,6 +103,7 @@ if(isset($_GET['id'])){
                             <a href="index.php?id=<?= $data['id_barang'] ?>" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus Data Ini?')" class="waves-effect waves-light btn"><i class="fa fa-trash text-red"></i> Hapus</a>
                         </td>
                     </tr>  
+                    
                     <!-- Modal -->
                     <div id="edit_barang<?= $data['id_barang'] ?>" class="modal fade" role="dialog">
                       <div class="modal-dialog">
@@ -97,7 +113,7 @@ if(isset($_GET['id'])){
                           <div class="modal-header">
                             <h4 class="modal-title">Edit Data barang</h4>
                           </div>
-                          <form action="index.php" method="POST">
+                          <form action="index.php?id=<?= $data['id_barang'] ?>" method="POST">
                           <div class="modal-body">
                             <div class="row">
                               <div class="col-md-6">
@@ -107,23 +123,23 @@ if(isset($_GET['id'])){
                                   </div>
                                   <div class="form-group">
                                       <label>Harga Barang</label>
-                                      <input type="number" class="form-control" name="harga_barang" id="harga_barang" placeholder="Masukkan Jumlah Barang">
+                                      <input type="number" class="form-control" name="harga_barang" id="harga_barang" value="<?= $data['harga_barang'] ?>" placeholder="Masukkan Jumlah Barang">
                                   </div>
                               </div>
                               <div class="col-md-6">
                                   <div class="form-group">
                                       <label>Jumlah Barang</label>
-                                      <input type="number" class="form-control" name="jumlah_barang" id="jumlah_barang" placeholder="Masukkan Jumlah Barang">
+                                      <input type="number" class="form-control" name="jumlah_barang" id="jumlah_barang" value="<?= $data['jumlah_barang'] ?>" placeholder="Masukkan Jumlah Barang">
                                   </div>
                                   <div class="form-group">
                                       <label>Tanggal Input Barang</label>
-                                      <input type="date" class="form-control" name="tgl_input" id="tgl_input" placeholder="Masukkan Tanggal Input Barang">
+                                      <input type="date" class="form-control" name="tgl_input" id="tgl_input" value="<?= $data['tgl_input'] ?>" placeholder="Masukkan Tanggal Input Barang">
                                   </div>
                               </div>
                             </div>
                           </div>
                           <div class="modal-footer">
-                            <button type="submit" name="simpan" class="btn btn-success">Simpan</button>
+                            <button type="submit" name="edit" class="btn btn-success">Update</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
                           </div>
                           </form>
